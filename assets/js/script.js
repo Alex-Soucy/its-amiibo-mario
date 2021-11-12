@@ -9,4 +9,95 @@
 	Search Page/Container:
 		Displays search results
 Has a "Back Button" to return to home page
+
 */
+
+// ** PAGE VARIABLES **
+let amiiboInfoAr = [];
+
+// function to retrieve data from Amiibo API
+let getAmiiboInfo = function(name) {
+    // format the api url    "https://www.amiiboapi.com/api/amiibo/?name=" + searchTerm
+    var apiUrl = "https://www.amiiboapi.com/api/amiibo/?name=mario";
+   
+    // make a get request to url
+    fetch(apiUrl)
+    .then(function(response) {
+      // request was successful
+      if (response.ok) {
+        console.log(response);
+        response.json().then(function(data) {
+            console.log(data);
+            
+            let amiiboInfoAr = data;
+            
+            console.log(amiiboInfoAr);
+            console.log(amiiboInfoAr.amiibo[1].name);
+            console.log(amiiboInfoAr.amiibo[1].gameSeries);
+            console.log(amiiboInfoAr.amiibo[1].image);
+            console.log(amiiboInfoAr.length);
+
+        });
+        
+  
+      } else {
+        
+        alert("Error: " + response.statusText);
+      }})
+    .catch(function(error) {
+      alert("Unable to connect to Amiibo API");
+    });
+  };
+
+/* 
+  var displayAmiiboInfo = function(amiiboInfoAr, searchTerm) {
+    //check if api returned any repos
+    if (amiiboInfoAr.length === 0) {
+      repoContainerEl.textContent = "No Amiibo Found";
+      return;
+    }
+  
+    // repoSearchTerm.textContent = searchTerm;
+  
+    // loop over returned amiibos
+    for (var i = 0; i < amiiboInfoAr.length; i++) {
+      
+      // format amiibo name
+      var amiiboName = amiiboInfoAr.amiibo[i].owner.login + "/" + repos[i].name;
+  
+      // create a link for each repo
+      var repoEl = document.createElement("a");
+      repoEl.classList = "list-item flex-row justify-space-between align-center";
+      repoEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
+  
+      // create a span element to hold repository name
+      var titleEl = document.createElement("span");
+      titleEl.textContent = repoName;
+  
+      // append to container
+      repoEl.appendChild(titleEl);
+  
+      // create a status element
+      var statusEl = document.createElement("span");
+      statusEl.classList = "flex-row align-center";
+  
+      // check if current repo has issues or not
+      if (repos[i].open_issues_count > 0) {
+        statusEl.innerHTML =
+          "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + " issue(s)";
+      } else {
+        statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
+      }
+  
+      // append to container
+      repoEl.appendChild(statusEl);
+  
+      // append container to the dom
+      repoContainerEl.appendChild(repoEl);
+    }
+  };
+
+*/
+
+  getAmiiboInfo();
+
