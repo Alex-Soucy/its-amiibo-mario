@@ -3,3 +3,14 @@ header {
     color: white;
     position: sticky;
 }
+
+h2 {
+    color: red;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1280px;
+    width: 90%;
+}
+
