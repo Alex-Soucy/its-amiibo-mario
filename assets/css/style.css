@@ -5,13 +5,13 @@
 
 
 header {
-    background-color: red;
+    background-color: #e4000f;
     color: white;
     position: sticky;
 }
 
 h2 {
-    color: red;
+    color: #e4000f;
 }
 
 .container {
@@ -23,6 +23,10 @@ h2 {
 .card {
     margin: 10px 10px 10px 10px;
     max-width: 300px;
+}
+#amiibo-figure {
+    height: 80%;
+    width: 80%;
 }
   @media only screen and (min-width: 601px) 
 {
