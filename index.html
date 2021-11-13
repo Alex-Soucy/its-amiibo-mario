@@ -6,14 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css" />
     <title>It's Amiibo Mario</title>
 </head>
 
 <body>
-    <header>
-        <h1>It's Amiibo Mario!</h1>
+    <header class="row">
+        <h1 class="center-align col s12">It's Amiibo Mario!</h1>
     </header>
+
+
+    <main class="row">
+        <h2 class="center-align col s12">Search for your favorite Amiibo character below</h2>     
+    </main>
+
+    <div class="row">
+        <form class="col s12">
+            <div class="col s12">
+                <div class="input-field col s6 push-s3">
+                    <input style="border: 2px solid red" style="border-radius: 25%;" class="center aligned" type="text" placeholder="ex. Mario, Link, Goomba, etc...">
+                </div>
+                <div class="input-field col s6 push-s3">
+                    <button  class="btn red waves-effect waves-light" type="submit" name="action">Submit
+                        <i class="material-icons right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>     
+    </div>
+    <div id="divider" style="background-color: white; height: 100px; width: 100%;"></div>
+    <div class="container center-align">
+        <div class="row valign-wrapper">
+            <div class="col s6 red-text card-panel hoverable card small">
+                <div class="card-title">Mario Figure
+                    <div class="card-image">
+                        <img id="amiibo-figure" class="circle responsive-img" src="assets/images/mario-placeholder.jpg" alt="Picture of the searched for Amiibo figure">
+                    </div>
+                </div>
+            </div>
+            <div class="col s6 red-text card-panel hoverable card small" id="amiiboInfo">
+                <div class="card-title">Related Games</div>
+                <ul class="card-content">
+                    <li>Super Mario Brothers</li>
+                    <li>Super Smash Bros</li>
+                </ul>
+            </div>
+        </div>
+        
+     
+    </div>
+
+
+
+
+
+
+
+
 
    <script src="assets/js/script.js" ></script>
 </body>
