@@ -1,0 +1,30 @@
+.btn
+{
+    background-color: #888888 !important;
+}
+
+.container 
+{
+    margin: 0 auto;
+    max-width: 1280px;
+    width: 90%;
+}
+
+.card {
+    margin: 10px 10px 10px 10px;
+    max-width: 300px;
+}
+  @media only screen and (min-width: 601px) 
+{
+    .container 
+    {
+      width: 85%;
+    }
+}
+  @media only screen and (min-width: 993px) 
+{
+    .container 
+    {
+      width: 70%;
+    }
+}
