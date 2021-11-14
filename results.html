@@ -10,7 +10,7 @@
     <title>It's Amiibo Mario</title>
 </head>
 
-<body style="background-color: #ff0000;">
+<body style="background-color: #e60012;">
     <header>
         <div class="container center-align">
             <div class="row s12">
@@ -18,8 +18,8 @@
                 <div class="col s4"></div><div><input type="image" id="image" class="col s4 circle responsive-img" alt="logo" src="assets/images/nintendo-logo.jpg"></div>
                 <h1 class="col s12 center-align white-text">It's Amiibo Mario!</h1>
                 <h3 class="col s3 center-align white-text">Name</h3>
-                <h3 class="col s3 center-align white-text">Game Series</h3>
-                <h3 class="col s3 center-align white-text">Vendor Name</h3>
+                <h3 class="col s3 center-align white-text">Auction Info</h3>
+                <h3 class="col s3 center-align white-text">Pricing</h3>
                 <h3 class="col s3 center-align white-text">Picture</h3>
             </div>
         </div>
@@ -33,20 +33,24 @@
                     <div class="card-content">Your faithful pipe climbing hero, Mario!</div>
                 </div>
                 <div class="col s3 red-text card-panel hoverable card small" id="gameName">
-                    <div class="card-title">Super Smash Brothers</div>
-                    <div class="card-content">A game that pits two fighters against each other in physical battle!</div>
+                    <div class="card-title" id="ebayTitle"><a href="https://ebay.com">Title: </a></div>
+                    <div class="card-content">
+                        <li id="ebayAuction">Auction: </li>
+                        <li id="ebayByNow">By It Now: </li>
+                        <li id="ebayCondition">Condition: </li>
+                        <li id="ebayReturns">Free Returns: </li>
+                    </div>
                 </div>
                 <div class="col s3 red-text card-panel hoverable card small" id="vendorName">
-                    <div class="card-title">Vendor Name</div>
+                    <div class="card-title">Current Price</div>
                     <div class="card-content">
-                        <li>Vendor 1</li>
-                        <li>Vendor 2</li>
-                        <li>Vendor 3</li>
+                        <li id="ebayPrice">Latest Price: </li>
+                        <li id="ebayShipping">Shipping Price: </li>
                     </div>
                 </div>
                 <div class="col s3 red-text card-panel hoverable card small" id="amiiboPic">
-                    <div class="card-title">Placeholder Picture</div>
-                    <div class="card-image"><input type="image" id="image" alt="Amiibo Picture" src="assets/images/MarioPlaceHolder.jpg"></div>
+                    <div class="card-title">Image</div>
+                    <div class="card-image"><input type="image" id="ebayImage" alt="Amiibo Picture" src="assets/images/MarioPlaceHolder.jpg"></div>
                 </div>
             </div>
         </div>
