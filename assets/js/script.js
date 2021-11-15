@@ -54,20 +54,13 @@ let getAmiiboInfo = function(amiiboName) {
       console.log(response);
         
       response.json().then(function(data) {
-        console.log(data);
-            
-      let amiiboInfoAr = data.amiibo;
-           
-        console.log(amiiboInfoAr);
-        console.log(amiiboInfoAr[0].name);
-        console.log(amiiboInfoAr[0].gameSeries);
-        console.log(amiiboInfoAr[0].image);
-        console.log(amiiboInfoAr.length);
+
+        displayAmiiboInfo(data, amiiboName);
 
       });
                  
     } else {
-      alert("Error: " + response.statusText);
+      alert("Please enter a valid Amiibo")
     }
 
   })
@@ -77,24 +70,16 @@ let getAmiiboInfo = function(amiiboName) {
 };
 
 // ** FUNCTION TO DISPLAY DATA FROM API **
-let displayAmiiboInfo = function(amiiboInfoAr, searchTerm) {
-  console.log("This function was called!");
-  console.log(amiiboInfoAr);
-  //check if api returned any repos
-  // if (amiiboInfoAr.length === 0) {
-  //   repoContainerEl.textContent = "No Amiibo Found";
-  //   return;
-  // }
- 
-  // amiiboSearchTerm.textContent = searchTerm;
-  
+let displayAmiiboInfo = function(data, amiibo) {
+  console.log("The display function was called!");
+
   // loop over returned amiibos
-  for (var i = 0; i < amiiboInfoAr.length; i++) {
+  for (var i = 0; i < data.amiibo.length; i++) {
            
     // define array variables
-    let amiiboName = amiiboInfoAr[i].name;
-    let amiiboGame = amiiboInfoAr[i].gameSeries;
-    let amiiboImage = amiiboInfoAr[i].image;
+    let amiiboName = data.amiibo[i].name;
+    let amiiboGame = data.amiibo[i].gameSeries;
+    let amiiboImage = data.amiibo[i].image;
 
     console.log(amiiboName);
     console.log(amiiboGame);
