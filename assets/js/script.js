@@ -13,12 +13,39 @@ Has a "Back Button" to return to home page
 */
 
 // ** PAGE VARIABLES **
+let amiiboInputEl = document.querySelector("#input");
+var amiiboFormEl = document.querySelector("#form");
+let amiiboName;
 let amiiboInfoAr = [];
+let data;
 
-// function to retrieve data from Amiibo API
+// ** EVENT HANDLER FOR AMIIBO USER SEARCH **
+var formSubmitHandler = function(event) {
+  // prevent page from refreshing
+  event.preventDefault();
+
+  console.log(event);
+
+  // get value from input element
+  amiiboName = amiiboInputEl.value.trim();
+  
+  if (amiiboName) {
+    getAmiiboInfo(amiiboName);
+
+    // clear old content
+    // repoContainerEl.textContent = "";
+    amiiboInputEl.value = "";
+  } else {
+    alert("Please enter an amiibo name");
+  }
+};
+
+// ** FUNCTION TO RETRIEVE DATA FROM API **
 let getAmiiboInfo = function(name) {
-  // format the api url    "https://www.amiiboapi.com/api/amiibo/?name=" + searchTerm
-  var apiUrl = "https://www.amiiboapi.com/api/amiibo/?name=mario";
+
+  // format the api url    "https://www.amiiboapi.com/api/amiibo/?name=" + amiiboName
+  var apiUrl = "https://www.amiiboapi.com/api/amiibo/?name=" + amiiboName
+  console.log(amiiboName);
    
   // make a get request to url
   fetch(apiUrl)
@@ -30,86 +57,53 @@ let getAmiiboInfo = function(name) {
       response.json().then(function(data) {
         console.log(data);
             
-        let amiiboInfoAr = data.amiibo;
+      let amiiboInfoAr = data.amiibo;
            
-          console.log(amiiboInfoAr);
-          console.log(amiiboInfoAr[1].name);
-          console.log(amiiboInfoAr[1].gameSeries);
-          console.log(amiiboInfoAr[1].image);
+        console.log(amiiboInfoAr);
+        console.log(amiiboInfoAr[1].name);
+        console.log(amiiboInfoAr[1].gameSeries);
+        console.log(amiiboInfoAr[1].image);
           
-          console.log(amiiboInfoAr.length);
-        });
-
+        console.log(amiiboInfoAr.length);
+      });
                  
-      } else {
-        
-        alert("Error: " + response.statusText);
-      }})
-    .catch(function(error) {
-      alert("Unable to connect to Amiibo API");
-    });
+    } else {
+      alert("Error: " + response.statusText);
+    }
 
-    displayAmiiboInfo();
+  })
+  .catch(function(error) {
+    alert("Unable to connect to Amiibo API");
+  })
+};
 
-    
-  };
-
+// ** FUNCTION TO DISPLAY DATA FROM API **
+let displayAmiiboInfo = function(amiiboInfoAr, searchTerm) {
+  console.log("This function was called!");
+  console.log(amiiboInfoAr);
+  //check if api returned any repos
+  // if (amiiboInfoAr.length === 0) {
+  //   repoContainerEl.textContent = "No Amiibo Found";
+  //   return;
+  // }
  
-  let displayAmiiboInfo = function(amiiboInfoAr, searchTerm) {
-    console.log("This function was called!");
-    console.log(amiiboInfoAr);
-    //check if api returned any repos
-    // if (amiiboInfoAr.length === 0) {
-    //   repoContainerEl.textContent = "No Amiibo Found";
-    //   return;
-    // }
+  // amiiboSearchTerm.textContent = searchTerm;
   
-    // amiiboSearchTerm.textContent = searchTerm;
-  
-    // loop over returned amiibos
-    for (var i = 0; i < amiiboInfoAr.length; i++) {
-            
-      // define array variables
-      let amiiboName = amiiboInfoAr[i].name;
-      let amiiboGame = amiiboInfoAr[i].gameSeries;
-      let amiiboImage = amiiboInfoAr[i].image;
+  // loop over returned amiibos
+  for (var i = 0; i < amiiboInfoAr.length; i++) {
+           
+    // define array variables
+    let amiiboName = amiiboInfoAr[i].name;
+    let amiiboGame = amiiboInfoAr[i].gameSeries;
+    let amiiboImage = amiiboInfoAr[i].image;
 
-      console.log(amiiboName);
-      console.log(amiiboGame);
-      console.log(amiiboImage);
+    console.log(amiiboName);
+    console.log(amiiboGame);
+    console.log(amiiboImage);
 
     };
 
-
   };
 
-    //   //create a div element to display results
-    //   let divEl = document.createElement("div")
- 
-    //   // create a span element to hold  name
-    //   var titleEl = document.createElement("span");
-    //   titleEl.textContent = repoName;
-      
-    //   // append to container
-    //   repoEl.appendChild(titleEl);
-  
-    //   // create a status element
-    //   var statusEl = document.createElement("span");
-    //   statusEl.classList = "flex-row align-center";
-  
-    //   // check if current repo has issues or not
-    //   if (repos[i].open_issues_count > 0) {
-    //     statusEl.innerHTML =
-    //       "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + " issue(s)";
-    //   } else {
-    //     statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
-    //   }
-  
-    //   // append to container
-    //   repoEl.appendChild(statusEl);
-  
-    //   // append container to the dom
-    //   repoContainerEl.appendChild(repoEl);
-
-getAmiiboInfo();  
-
+// ** EVENT HANDLER FOR USER INPUT **
+amiiboFormEl.addEventListener("submit", formSubmitHandler);
