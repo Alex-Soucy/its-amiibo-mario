@@ -24,14 +24,11 @@ h2 {
     margin: 10px 10px 10px 10px;
     max-width: 300px;
 }
-<<<<<<< HEAD
 
-=======
 #amiibo-figure {
     height: 80%;
     width: 80%;
 }
->>>>>>> 687d329dc65c33663b4c0f3158379f8f94349d0d
   @media only screen and (min-width: 601px) 
 {
     .container 
