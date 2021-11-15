@@ -14,7 +14,7 @@ Has a "Back Button" to return to home page
 
 // ** PAGE VARIABLES **
 let amiiboInputEl = document.querySelector("#input");
-var amiiboFormEl = document.querySelector("#form");
+let amiiboFormEl = document.querySelector("#form");
 let amiiboName;
 let amiiboInfoAr = [];
 let data;
@@ -23,8 +23,6 @@ let data;
 var formSubmitHandler = function(event) {
   // prevent page from refreshing
   event.preventDefault();
-
-  console.log(event);
 
   // get value from input element
   amiiboName = amiiboInputEl.value.trim();
@@ -38,10 +36,11 @@ var formSubmitHandler = function(event) {
   } else {
     alert("Please enter an amiibo name");
   }
+
 };
 
 // ** FUNCTION TO RETRIEVE DATA FROM API **
-let getAmiiboInfo = function(name) {
+let getAmiiboInfo = function(amiiboName) {
 
   // format the api url    "https://www.amiiboapi.com/api/amiibo/?name=" + amiiboName
   var apiUrl = "https://www.amiiboapi.com/api/amiibo/?name=" + amiiboName
@@ -60,11 +59,11 @@ let getAmiiboInfo = function(name) {
       let amiiboInfoAr = data.amiibo;
            
         console.log(amiiboInfoAr);
-        console.log(amiiboInfoAr[1].name);
-        console.log(amiiboInfoAr[1].gameSeries);
-        console.log(amiiboInfoAr[1].image);
-          
+        console.log(amiiboInfoAr[0].name);
+        console.log(amiiboInfoAr[0].gameSeries);
+        console.log(amiiboInfoAr[0].image);
         console.log(amiiboInfoAr.length);
+
       });
                  
     } else {
