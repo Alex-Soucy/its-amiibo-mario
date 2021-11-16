@@ -14,11 +14,22 @@ Has a "Back Button" to return to home page
 
 // ** PAGE VARIABLES **
 let amiiboInfoAr = [];
+let searchHistAr = [];
+let searchTerm = document.getElementById("search-term");
+let optionEl = document.getElementsByClassName("option");
+let searchDataIndex = 0
+let autoFillEl = function(){
+  for(var i = 0; i < 3; i++) {
+    let storage = localStorage.getItem(searchHistAr[i])
+    console.log(storage)
 
+  }
+}
+autoFillEl()
 // function to retrieve data from Amiibo API
 let getAmiiboInfo = function(name) {
   // format the api url    "https://www.amiiboapi.com/api/amiibo/?name=" + searchTerm
-  var apiUrl = "https://www.amiiboapi.com/api/amiibo/?name=mario";
+  var apiUrl = "https://www.amiiboapi.com/api/amiibo/?name=" + searchTerm.value;
    
   // make a get request to url
   fetch(apiUrl)
@@ -33,11 +44,18 @@ let getAmiiboInfo = function(name) {
         let amiiboInfoAr = data.amiibo;
            
           console.log(amiiboInfoAr);
-          console.log(amiiboInfoAr[1].name);
-          console.log(amiiboInfoAr[1].gameSeries);
-          console.log(amiiboInfoAr[1].image);
+          console.log(amiiboInfoAr[0].name);
+          console.log(amiiboInfoAr[0].gameSeries);
+          console.log(amiiboInfoAr[0].image);
           
           console.log(amiiboInfoAr.length);
+        let searchDataObj = {
+          name: searchTerm.value,
+          id: searchDataIndex
+        }
+        searchHistAr.push(searchDataObj)
+          localStorage.setItem("amiibo", JSON.stringify(searchHistAr));
+          searchDataIndex++;
         });
 
                  
@@ -82,7 +100,6 @@ let getAmiiboInfo = function(name) {
 
 
   };
-
     //   //create a div element to display results
     //   let divEl = document.createElement("div")
  
@@ -110,6 +127,11 @@ let getAmiiboInfo = function(name) {
   
     //   // append container to the dom
     //   repoContainerEl.appendChild(repoEl);
-
-getAmiiboInfo();  
-
+    document.getElementById("search-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      console.log(searchTerm.value);
+      searchDataIndex++;
+      console.log(searchDataIndex);
+      getAmiiboInfo();
+      
+    });
