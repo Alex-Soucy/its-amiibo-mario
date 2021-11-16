@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&family=Genos&display=swap" rel="stylesheet">
     <title>It's Amiibo Mario</title>
 </head>
 
@@ -28,7 +29,7 @@
                     <input style="border: 2px solid #e4000f" style="border-radius: 25%;" class="center aligned" id="input" type="text" placeholder="ex. Mario, Link, Goomba, etc...">
                 </div>
                 <div class="input-field col s6 push-s3">
-                    <button  class="btn red waves-effect waves-light" type="submit" name="action">Submit
+                    <button  class="btn red waves-effect waves-light" type="submit" name="action" id="main-btn">Submit
                         <i class="material-icons right"></i>
                     </button>
                 </div>
@@ -39,10 +40,10 @@
     <div class="container center-align">
         <div class="row valign-wrapper">
             <div class="col s6 red-text card-panel hoverable card small">
-                <div class="card-title">Mario Figure
-                    <div class="card-image">
-                        <img id="amiibo-figure" class="circle responsive-img" src="assets/images/mario-placeholder.jpg" alt="Picture of the searched for Amiibo figure">
-                    </div>
+                <div class="card-title">Mario Figure      
+                </div>
+                <div class="card-image">
+                    <img id="amiibo-figure" class="circle responsive-img" src="assets/images/mario-placeholder.jpg" alt="Picture of the searched for Amiibo figure">
                 </div>
             </div>
             <div class="col s6 red-text card-panel hoverable card small" id="amiiboInfo">
