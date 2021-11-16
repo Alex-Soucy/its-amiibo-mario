@@ -1,7 +1,11 @@
-.btn
-{
-    background-color: #888888 !important;
+body {
+  font-family: "Chakra Petch", sans-serif;
 }
+
+/* .btn */
+/* { */
+    /* background-color: #888888 !important; */
+/* } */
 
 
 header {
@@ -22,8 +26,8 @@ h2 {
 
 .card {
     margin: 10px 10px 10px 10px;
-    max-width: 300px;
 }
+
 #amiibo-figure {
     height: 80%;
     width: 80%;
