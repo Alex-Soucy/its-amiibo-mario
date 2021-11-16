@@ -15,6 +15,7 @@ Has a "Back Button" to return to home page
 // ** PAGE VARIABLES **
 let amiiboInputEl = document.querySelector("#input");
 let amiiboFormEl = document.querySelector("#form");
+let resultsEl = document.querySelector("#results");
 let amiiboName;
 let amiiboInfoAr = [];
 let data;
@@ -31,8 +32,9 @@ var formSubmitHandler = function(event) {
     getAmiiboInfo(amiiboName);
 
     // clear old content
-    // repoContainerEl.textContent = "";
+    resultsEl.innerHTML = "";
     amiiboInputEl.value = "";
+
   } else {
     alert("Please enter an amiibo name");
   }
@@ -52,17 +54,14 @@ let getAmiiboInfo = function(amiiboName) {
     // request was successful
     if (response.ok) {
       console.log(response);
-        
+       
       response.json().then(function(data) {
-
         displayAmiiboInfo(data, amiiboName);
-
       });
                  
     } else {
       alert("Please enter a valid Amiibo")
     }
-
   })
   .catch(function(error) {
     alert("Unable to connect to Amiibo API");
@@ -74,38 +73,56 @@ let displayAmiiboInfo = function(data, amiiboName) {
   console.log("The display function was called!");
 
   // loop over returned amiibos
-  for (var i = 0; i < data.amiibo.length; i++) {
+  for (var i = 0; i < data.amiibo.length; i++) {      
 
-    
-    let amiiboFigureEl = document.createElement("#amiibo-figure");
-    let amiiboGameEl = document.createElement("#amiibo-game");
-           
-    //create array container
-    //crate name contianer
-    //create amiibo name div
-    //create img-container div
-    //create img
-    let amiiboNameCardEl = document.createElement("div");
-    amiiboNameCardEl.classList = "card-title";
-    amiiboNameCardEl.textContent = data.amiibo[i].name;
+    //create array-container div
+    let arrayContainerEl = document.createElement("div");
+    arrayContainerEl.classList = "row valign-wrapper";
 
+    //create name-figure-container div
+    let nameFigureContainerEl = document.createElement("div");
+    nameFigureContainerEl.classList = "col s6 red-text card-panel hoverable card small";
 
+    //create amiibo-name div
     let amiiboNameEl = document.createElement("div");
-
-    let amiiboFigure = data.amiibo[i].image;  
+    amiiboNameEl.classList = "card-title";
+    amiiboNameEl.textContent = data.amiibo[i].name;
+    nameFigureContainerEl.appendChild(amiiboNameEl);
+    
+    //create amiibo-figure img
+    let amiiboFigureEl = document.createElement("img");
     amiiboFigureEl.classList = "circle responsive-img"
-    amiiboFigureEl.setAttribute("href", "./single-repo.html?repo=" + repoName)
+    amiiboFigureEl.setAttribute("src", data.amiibo[i].image)
+    amiiboFigureEl.setAttribute("alt", "Picture of the searched for Amiibo figure")
+    nameFigureContainerEl.appendChild(amiiboFigureEl);
 
-    let amiiboGame = data.amiibo[i].gameSeries;
-    amiiboGameEl.classList
+    //append name-figure container to array-container
+    arrayContainerEl.appendChild(nameFigureContainerEl);
 
-    console.log(amiiboName);
-    console.log(amiiboGame);
-    console.log(amiiboFigure);
+    //create amiiboInfo container div
+    let amiiboInfoContainerEl = document.createElement("div");
+    amiiboInfoContainerEl.classList = "col s6 red-text card-panel hoverable card small";
 
-    };
+    //create game-title div
+    let gameContainerEl = document.createElement("div");
+    gameContainerEl.classList = "card-title";
+    gameContainerEl.textContent = "Game Series"
+    amiiboInfoContainerEl.appendChild(gameContainerEl);
+  
+    //create amiibo-game div
+    let amiiboGameEl = document.createElement("div");
+    amiiboGameEl.classList = "card-content";
+    amiiboGameEl.textContent = data.amiibo[i].gameSeries;
+    amiiboInfoContainerEl.appendChild(amiiboGameEl);
+
+    //append amiiboInfo container to array-container
+    arrayContainerEl.appendChild(amiiboInfoContainerEl);
+ 
+    // append array-container to resultsEl
+    resultsEl.appendChild(arrayContainerEl);
 
   };
+};
 
 // ** EVENT HANDLER FOR USER INPUT **
-amiiboFormEl.addEventListener("submit", formSubmitHandler);
+amiiboFormEl.addEventListener( "submit", formSubmitHandler);
