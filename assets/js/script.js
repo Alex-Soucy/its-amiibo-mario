@@ -70,20 +70,38 @@ let getAmiiboInfo = function(amiiboName) {
 };
 
 // ** FUNCTION TO DISPLAY DATA FROM API **
-let displayAmiiboInfo = function(data, amiibo) {
+let displayAmiiboInfo = function(data, amiiboName) {
   console.log("The display function was called!");
 
   // loop over returned amiibos
   for (var i = 0; i < data.amiibo.length; i++) {
+
+    
+    let amiiboFigureEl = document.createElement("#amiibo-figure");
+    let amiiboGameEl = document.createElement("#amiibo-game");
            
-    // define array variables
-    let amiiboName = data.amiibo[i].name;
+    //create array container
+    //crate name contianer
+    //create amiibo name div
+    //create img-container div
+    //create img
+    let amiiboNameCardEl = document.createElement("div");
+    amiiboNameCardEl.classList = "card-title";
+    amiiboNameCardEl.textContent = data.amiibo[i].name;
+
+
+    let amiiboNameEl = document.createElement("div");
+
+    let amiiboFigure = data.amiibo[i].image;  
+    amiiboFigureEl.classList = "circle responsive-img"
+    amiiboFigureEl.setAttribute("href", "./single-repo.html?repo=" + repoName)
+
     let amiiboGame = data.amiibo[i].gameSeries;
-    let amiiboImage = data.amiibo[i].image;
+    amiiboGameEl.classList
 
     console.log(amiiboName);
     console.log(amiiboGame);
-    console.log(amiiboImage);
+    console.log(amiiboFigure);
 
     };
 
