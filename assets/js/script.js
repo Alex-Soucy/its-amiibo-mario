@@ -15,6 +15,7 @@ Has a "Back Button" to return to home page
 // ** PAGE VARIABLES **
 let amiiboInputEl = document.querySelector("#input");
 let amiiboFormEl = document.querySelector("#form");
+let resultsEl = document.querySelector("#results");
 let amiiboName;
 let amiiboInfoAr = [];
 let data;
@@ -31,8 +32,9 @@ var formSubmitHandler = function(event) {
     getAmiiboInfo(amiiboName);
 
     // clear old content
-    // repoContainerEl.textContent = "";
+    resultsEl.innerHTML = "";
     amiiboInputEl.value = "";
+
   } else {
     alert("Please enter an amiibo name");
   }
@@ -52,24 +54,14 @@ let getAmiiboInfo = function(amiiboName) {
     // request was successful
     if (response.ok) {
       console.log(response);
-        
+       
       response.json().then(function(data) {
-        console.log(data);
-            
-      let amiiboInfoAr = data.amiibo;
-           
-        console.log(amiiboInfoAr);
-        console.log(amiiboInfoAr[0].name);
-        console.log(amiiboInfoAr[0].gameSeries);
-        console.log(amiiboInfoAr[0].image);
-        console.log(amiiboInfoAr.length);
-
+        displayAmiiboInfo(data, amiiboName);
       });
                  
     } else {
-      alert("Error: " + response.statusText);
+      alert("Please enter a valid Amiibo")
     }
-
   })
   .catch(function(error) {
     alert("Unable to connect to Amiibo API");
@@ -77,32 +69,60 @@ let getAmiiboInfo = function(amiiboName) {
 };
 
 // ** FUNCTION TO DISPLAY DATA FROM API **
-let displayAmiiboInfo = function(amiiboInfoAr, searchTerm) {
-  console.log("This function was called!");
-  console.log(amiiboInfoAr);
-  //check if api returned any repos
-  // if (amiiboInfoAr.length === 0) {
-  //   repoContainerEl.textContent = "No Amiibo Found";
-  //   return;
-  // }
- 
-  // amiiboSearchTerm.textContent = searchTerm;
-  
+let displayAmiiboInfo = function(data, amiiboName) {
+  console.log("The display function was called!");
+
   // loop over returned amiibos
-  for (var i = 0; i < amiiboInfoAr.length; i++) {
-           
-    // define array variables
-    let amiiboName = amiiboInfoAr[i].name;
-    let amiiboGame = amiiboInfoAr[i].gameSeries;
-    let amiiboImage = amiiboInfoAr[i].image;
+  for (var i = 0; i < data.amiibo.length; i++) {      
 
-    console.log(amiiboName);
-    console.log(amiiboGame);
-    console.log(amiiboImage);
+    //create array-container div
+    let arrayContainerEl = document.createElement("div");
+    arrayContainerEl.classList = "row valign-wrapper";
 
-    };
+    //create name-figure-container div
+    let nameFigureContainerEl = document.createElement("div");
+    nameFigureContainerEl.classList = "col s6 red-text card-panel hoverable card small";
+
+    //create amiibo-name div
+    let amiiboNameEl = document.createElement("div");
+    amiiboNameEl.classList = "card-title";
+    amiiboNameEl.textContent = data.amiibo[i].name;
+    nameFigureContainerEl.appendChild(amiiboNameEl);
+    
+    //create amiibo-figure img
+    let amiiboFigureEl = document.createElement("img");
+    amiiboFigureEl.classList = "circle responsive-img"
+    amiiboFigureEl.setAttribute("src", data.amiibo[i].image)
+    amiiboFigureEl.setAttribute("alt", "Picture of the searched for Amiibo figure")
+    nameFigureContainerEl.appendChild(amiiboFigureEl);
+
+    //append name-figure container to array-container
+    arrayContainerEl.appendChild(nameFigureContainerEl);
+
+    //create amiiboInfo container div
+    let amiiboInfoContainerEl = document.createElement("div");
+    amiiboInfoContainerEl.classList = "col s6 red-text card-panel hoverable card small";
+
+    //create game-title div
+    let gameContainerEl = document.createElement("div");
+    gameContainerEl.classList = "card-title";
+    gameContainerEl.textContent = "Game Series"
+    amiiboInfoContainerEl.appendChild(gameContainerEl);
+  
+    //create amiibo-game div
+    let amiiboGameEl = document.createElement("div");
+    amiiboGameEl.classList = "card-content";
+    amiiboGameEl.textContent = data.amiibo[i].gameSeries;
+    amiiboInfoContainerEl.appendChild(amiiboGameEl);
+
+    //append amiiboInfo container to array-container
+    arrayContainerEl.appendChild(amiiboInfoContainerEl);
+ 
+    // append array-container to resultsEl
+    resultsEl.appendChild(arrayContainerEl);
 
   };
+};
 
 // ** EVENT HANDLER FOR USER INPUT **
-amiiboFormEl.addEventListener("submit", formSubmitHandler);
+amiiboFormEl.addEventListener( "submit", formSubmitHandler);
