@@ -17,7 +17,6 @@ let amiiboInputEl = document.querySelector("#input");
 let amiiboFormEl = document.querySelector("#form");
 let resultsEl = document.querySelector("#results");
 let searchContainerEl = document.querySelector("#btn-parent");
-console.log(searchContainerEl);
 let amiiboName;
 let amiiboInfoAr = [];
 let data;
@@ -36,6 +35,8 @@ var formSubmitHandler = function(event) {
     // clear old content
     resultsEl.innerHTML = "";
     amiiboInputEl.value = "";
+    searchContainerEl.element = "";
+    console.log(searchContainerEl);
 
   } else {
     alert("Please enter an amiibo name");
@@ -90,14 +91,20 @@ let displayAmiiboInfo = function(data, amiiboName) {
     amiiboNameEl.classList = "card-title";
     amiiboNameEl.textContent = data.amiibo[i].name;
     nameFigureContainerEl.appendChild(amiiboNameEl);
+
+    // create img div
+    let figureDivEl = document.createElement("div");
+    figureDivEl.classList = "card-image";
+    figureDivEl.setAttribute('id', 'img-div');
+    nameFigureContainerEl.appendChild(figureDivEl);
+
     
     //create amiibo-figure img
     let amiiboFigureEl = document.createElement("img");
-    amiiboFigureEl.classList = "card-image"
-    amiiboFigureEl.setAttribute('id', 'ebayImage');
+    amiiboFigureEl.setAttribute('id', 'amiibo-image');
     amiiboFigureEl.setAttribute("src", data.amiibo[i].image)
     amiiboFigureEl.setAttribute("alt", "Picture of the searched for Amiibo figure")
-    nameFigureContainerEl.appendChild(amiiboFigureEl);
+    figureDivEl.appendChild(amiiboFigureEl);
 
     //append name-figure container to array-container
     arrayContainerEl.appendChild(nameFigureContainerEl);
@@ -126,7 +133,7 @@ let displayAmiiboInfo = function(data, amiiboName) {
   };
 
   let secondApiBtn = document.createElement("a");
-  secondApiBtn.classList = "btn red waves-effect waves-light";
+  secondApiBtn.classList = "btn red waves-effect waves-light col s4 push-s4";
   secondApiBtn.textContent = "See eBay Listings";
   secondApiBtn.setAttribute("href", "./results.html?amiibo=" + amiiboName);
   searchContainerEl.appendChild(secondApiBtn);
