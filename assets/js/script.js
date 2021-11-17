@@ -1,17 +1,3 @@
-/*Basic javaScript Set Up 
-	Home Page:
-		User Searches for an Amiibo
-		Fetch Amiibo information from Amiibo API
-		Display determine amiibo information
-		Button for secondary API fetch/webpage 
-			Fetch Web Search results using data from the original input or the fetched data to search
-			Open a secondary page with search results for applicable amiibo
-	Search Page/Container:
-		Displays search results
-Has a "Back Button" to return to home page
-
-*/
-
 // ** PAGE VARIABLES **
 let amiiboInputEl = document.querySelector("#input");
 let amiiboFormEl = document.querySelector("#form");
@@ -35,8 +21,7 @@ var formSubmitHandler = function(event) {
     // clear old content
     resultsEl.innerHTML = "";
     amiiboInputEl.value = "";
-    searchContainerEl.element = "";
-    console.log(searchContainerEl);
+    searchContainerEl.innerHTML = "";
 
   } else {
     alert("Please enter an amiibo name");
