@@ -18,7 +18,12 @@ let amiiboFormEl = document.querySelector("#form");
 let resultsEl = document.querySelector("#results");
 let amiiboName;
 let amiiboInfoAr = [];
+let searchHistAr = [];
+let optionEl = document.getElementsByClassName("option");
+let searchDataIndex = 0
 let data;
+let storage = localStorage.getItem("amiibo")
+let autoFill = JSON.parse(storage)
 
 // ** EVENT HANDLER FOR AMIIBO USER SEARCH **
 var formSubmitHandler = function(event) {
@@ -58,7 +63,13 @@ let getAmiiboInfo = function(amiiboName) {
       response.json().then(function(data) {
         displayAmiiboInfo(data, amiiboName);
       });
-                 
+        let searchDataObj = {
+          name: amiiboName,
+          id: searchDataIndex
+        }
+        searchHistAr.push(searchDataObj)
+          localStorage.setItem("amiibo", JSON.stringify(searchHistAr));
+          searchDataIndex++;            
     } else {
       alert("Please enter a valid Amiibo")
     }
@@ -122,7 +133,15 @@ let displayAmiiboInfo = function(data, amiiboName) {
     resultsEl.appendChild(arrayContainerEl);
 
   };
-};
-
+}
+let dropdown = function() {
+  for(var i =0; i < autoFill.length; i++)
+  console.log(autoFill[i].name)
+  let option = document.createElement("option")
+  option.textContent = autoFill[i].name
+  amiiboInputEl.appendChild(option)
+  
+}
+dropdown()
 // ** EVENT HANDLER FOR USER INPUT **
-amiiboFormEl.addEventListener( "submit", formSubmitHandler);
+amiiboFormEl.addEventListener( "submit",  formSubmitHandler);
