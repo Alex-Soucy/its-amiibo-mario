@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&family=Genos&display=swap">
+    <title>It's Amiibo Mario</title>
+</head>
+
+<body style="background-color: #e60012;">
+    <header>
+        <div class="container center-align">
+            <div class="row s12">
+                <!-- <div class="col s4 offset-s4 responsive-img"><input type="image" id="image" class="col s4 responsive-img" alt="logo" src="assets/images/nintendo-logo.jpg"></div> -->
+                <div class="col s4"></div><div><input type="image" id="image" class="col s4 circle responsive-img" alt="logo" src="assets/images/nintendo-logo.jpg"></div>
+                <h1 class="col s12 center-align white-text">It's Amiibo Mario!</h1>
+                <h3 class="col s3 center-align white-text">Name</h3>
+                <h3 class="col s3 center-align white-text">Auction Info</h3>
+                <h3 class="col s3 center-align white-text">Pricing</h3>
+                <h3 class="col s3 center-align white-text">Picture</h3>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div id="divider" style="background-color:#ffffff; height: 5px; width:100%;"></div>
+        <div class="container center-align" id="card-container">
+            <div class="row valign-wrapper">
+                <div class="card small col s3 red-text card-panel hoverable" id="amiiboName">
+                    <div class="card-title">Mario</div>
+                    <div class="card-content">Result set that contains your character.</div>
+                </div>
+                <div class="card small col s3 red-text card-panel hoverable" id="gameName">
+                    <div class="card-title" id="ebayTitle"><a href="https://ebay.com">Title: </a></div>
+                    <div class="card-content">
+                        <li id="ebayAuction">Auction: </li>
+                        <li id="ebayByNow">Buy It Now: </li>
+                        <li id="ebayCondition">Condition: </li>
+                        <li id="ebayReturns">Free Returns: </li>
+                    </div>
+                </div>
+                <div class="card small col s3 red-text card-panel hoverable" id="vendorName">
+                    <div class="card-title">Current Price</div>
+                    <div class="card-content">
+                        <li id="ebayPrice">Latest Price: </li>
+                        <li id="ebayShipping">See ebay for shipping details</li>
+                    </div>
+                </div>
+                <div class="card small col s3 red-text card-panel hoverable" id="amiiboPic">
+                    <div class="card-title">Image</div>
+                    <div class="card-image"><img id="ebayImage" alt="Amiibo Picture" src="assets/images/mario-placeholder.jpg"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container center-align">
+            <div class="row">
+                <h3><a href="index.html" class="btn-large white center-align red-text waves-effect waves-light">Back to Search Page</a></h3>
+            </div>
+        </div>
+    </footer>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+   <script src="assets/js/listings.js" ></script>
+   <!-- <script src="assets/js/script.js" ></script> -->
+</body>
+
+</html>
