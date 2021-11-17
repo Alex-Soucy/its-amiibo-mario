@@ -72,7 +72,6 @@ let getAmiiboInfo = function(amiiboName) {
 
 // ** FUNCTION TO DISPLAY DATA FROM API **
 let displayAmiiboInfo = function(data, amiiboName) {
-  console.log("The display function was called!");
 
   // loop over returned amiibos
   for (var i = 0; i < data.amiibo.length; i++) {      
@@ -108,13 +107,13 @@ let displayAmiiboInfo = function(data, amiiboName) {
     //create game-title div
     let gameContainerEl = document.createElement("div");
     gameContainerEl.classList = "card-title";
-    gameContainerEl.textContent = "Game Series"
+    gameContainerEl.textContent = "Amiibo Series"
     amiiboInfoContainerEl.appendChild(gameContainerEl);
   
     //create amiibo-game div
     let amiiboGameEl = document.createElement("div");
     amiiboGameEl.classList = "card-content";
-    amiiboGameEl.textContent = data.amiibo[i].gameSeries;
+    amiiboGameEl.textContent = data.amiibo[i].amiiboSeries;
     amiiboInfoContainerEl.appendChild(amiiboGameEl);
 
     //append amiiboInfo container to array-container
@@ -123,7 +122,8 @@ let displayAmiiboInfo = function(data, amiiboName) {
     // append array-container to resultsEl
     resultsEl.appendChild(arrayContainerEl);
   };
-
+  
+  // create link to secondary API and append to page
   let secondApiBtn = document.createElement("a");
   secondApiBtn.classList = "btn red waves-effect waves-light";
   secondApiBtn.textContent = "See eBay Listings";
