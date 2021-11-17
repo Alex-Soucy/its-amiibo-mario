@@ -16,6 +16,8 @@ Has a "Back Button" to return to home page
 let amiiboInputEl = document.querySelector("#input");
 let amiiboFormEl = document.querySelector("#form");
 let resultsEl = document.querySelector("#results");
+let searchContainerEl = document.querySelector("#btn-parent");
+console.log(searchContainerEl);
 let amiiboName;
 let amiiboInfoAr = [];
 let data;
@@ -120,8 +122,14 @@ let displayAmiiboInfo = function(data, amiiboName) {
  
     // append array-container to resultsEl
     resultsEl.appendChild(arrayContainerEl);
-
   };
+
+  let secondApiBtn = document.createElement("a");
+  secondApiBtn.classList = "btn red waves-effect waves-light";
+  secondApiBtn.textContent = "See eBay Listings";
+  secondApiBtn.setAttribute("href", "./results.html?amiibo=" + amiiboName);
+  searchContainerEl.appendChild(secondApiBtn);
+
 };
 
 // ** EVENT HANDLER FOR USER INPUT **
