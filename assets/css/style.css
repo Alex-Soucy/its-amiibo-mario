@@ -36,6 +36,16 @@ h2 {
   justify-content: center;
 }
 
+#img-div {
+  margin-top: 20px;
+}
+
+#amiibo-image {
+  height: 175px;
+  width: 200px;
+  object-fit: contain;
+}
+
 #ebayImage 
 {
   height: 175px;

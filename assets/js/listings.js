@@ -6,10 +6,21 @@ Check response.request_info for credits_remaining
 
 var listingsContainerEl = document.querySelector('#card-container')
 
-// TESTING COUNTDOWN API CALL
-var getEbayListings = function () {
+var getAmiiboName = function () {
+  var queryString = document.location.search
+  var amiiboName = queryString.split('=')[1]
+
+  if (amiiboName) {
+    getEbayListings(amiiboName)
+  } else {
+    document.location.replace('./index.html')
+  }
+}
+
+// EBAY COUNTDOWN API CALL
+var getEbayListings = function (amiiboName) {
   console.log('Function was called.')
-  fetch('https://api.countdownapi.com/request?api_key=D4D701239DFE46729FA7FDB962DBF3C0&type=search&ebay_domain=ebay.com&search_term=mario%20amiibo').then(function (response) {
+  fetch('https://api.countdownapi.com/request?api_key=D4D701239DFE46729FA7FDB962DBF3C0&type=search&ebay_domain=ebay.com&search_term=' + amiiboName + '%20amiibo').then(function (response) {
     if (response.ok) {
       console.log(response)
       response.json().then(function (data) {
@@ -24,7 +35,8 @@ var displayListings = function (listings) {
   if (listings.search_results.length === 0) {
     listingsContainerEl.textContent = 'Sorry, we couldn\'t find a matching listing for the provided character.'
   } else {
-    for (var i = 0; i < listings.search_results.length; i++) {
+    // limit rows created to 10 and direct user to eBay search result page for additional listings
+    for (var i = 0; i < 10; i++) {
       var listingsRowEl = document.createElement('div')
       listingsRowEl.classList.add('row', 'valign-wrapper')
 
@@ -35,7 +47,7 @@ var displayListings = function (listings) {
 
       var nameCardTitleEl = document.createElement('h4')
       nameCardTitleEl.classList.add('card-title')
-      nameCardTitleEl.textContent = 'Mario' // this should be the searched amiibo name from the search page
+      nameCardTitleEl.textContent = document.location.search.split('=')[1] // this should be the searched amiibo name from the search page
 
       nameContainerEl.appendChild(nameCardTitleEl)
       // END NAME CARD CREATION
@@ -118,12 +130,17 @@ var displayListings = function (listings) {
 
       amiiboPicContainerEl.appendChild(amiiboPicTitleEl)
 
+      var amiiboImageDivEl = document.createElement('div')
+      amiiboImageDivEl.classList.add('card-image')
+
       var amiiboPicImageEl = document.createElement('img')
       amiiboPicImageEl.setAttribute('id', 'ebayImage')
       amiiboPicImageEl.setAttribute('alt', 'amiibo picture')
       amiiboPicImageEl.setAttribute('src', listings.search_results[i].image)
 
-      amiiboPicContainerEl.appendChild(amiiboPicImageEl)
+      amiiboImageDivEl.appendChild(amiiboPicImageEl)
+
+      amiiboPicContainerEl.appendChild(amiiboImageDivEl)
       // END PICTURE CARD CREATION
 
       // APPEND CARDS TO ROW CONTAINER ELEMENT
@@ -138,4 +155,4 @@ var displayListings = function (listings) {
   }
 }
 
-getEbayListings()
+getAmiiboName()
