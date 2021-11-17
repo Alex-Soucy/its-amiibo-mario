@@ -24,7 +24,8 @@ var displayListings = function (listings) {
   if (listings.search_results.length === 0) {
     listingsContainerEl.textContent = 'Sorry, we couldn\'t find a matching listing for the provided character.'
   } else {
-    for (var i = 0; i < listings.search_results.length; i++) {
+    // limit rows created to 10 and direct user to eBay search result page for additional listings
+    for (var i = 0; i < 10; i++) {
       var listingsRowEl = document.createElement('div')
       listingsRowEl.classList.add('row', 'valign-wrapper')
 
@@ -118,12 +119,17 @@ var displayListings = function (listings) {
 
       amiiboPicContainerEl.appendChild(amiiboPicTitleEl)
 
+      var amiiboImageDivEl = document.createElement('div')
+      amiiboImageDivEl.classList.add('card-image')
+
       var amiiboPicImageEl = document.createElement('img')
       amiiboPicImageEl.setAttribute('id', 'ebayImage')
       amiiboPicImageEl.setAttribute('alt', 'amiibo picture')
       amiiboPicImageEl.setAttribute('src', listings.search_results[i].image)
 
-      amiiboPicContainerEl.appendChild(amiiboPicImageEl)
+      amiiboImageDivEl.appendChild(amiiboPicImageEl)
+
+      amiiboPicContainerEl.appendChild(amiiboImageDivEl)
       // END PICTURE CARD CREATION
 
       // APPEND CARDS TO ROW CONTAINER ELEMENT
