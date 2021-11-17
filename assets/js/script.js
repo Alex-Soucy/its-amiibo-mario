@@ -81,7 +81,7 @@ let displayAmiiboInfo = function(data, amiiboName) {
 
     //create name-figure-container div
     let nameFigureContainerEl = document.createElement("div");
-    nameFigureContainerEl.classList = "col s6 red-text card-panel hoverable card small";
+    nameFigureContainerEl.classList = "card small col s6 red-text card-panel hoverable";
 
     //create amiibo-name div
     let amiiboNameEl = document.createElement("div");
@@ -91,7 +91,8 @@ let displayAmiiboInfo = function(data, amiiboName) {
     
     //create amiibo-figure img
     let amiiboFigureEl = document.createElement("img");
-    amiiboFigureEl.classList = "circle responsive-img"
+    amiiboFigureEl.classList = "card-image"
+    amiiboFigureEl.setAttribute('id', 'ebayImage');
     amiiboFigureEl.setAttribute("src", data.amiibo[i].image)
     amiiboFigureEl.setAttribute("alt", "Picture of the searched for Amiibo figure")
     nameFigureContainerEl.appendChild(amiiboFigureEl);
@@ -101,7 +102,7 @@ let displayAmiiboInfo = function(data, amiiboName) {
 
     //create amiiboInfo container div
     let amiiboInfoContainerEl = document.createElement("div");
-    amiiboInfoContainerEl.classList = "col s6 red-text card-panel hoverable card small";
+    amiiboInfoContainerEl.classList = "card small col s6 red-text card-panel hoverable";
 
     //create game-title div
     let gameContainerEl = document.createElement("div");
