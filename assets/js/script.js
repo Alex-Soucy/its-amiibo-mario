@@ -7,7 +7,6 @@ let amiiboName;
 let amiiboInfoAr = [];
 let searchHistAr = [];
 let optionEl = document.getElementsByClassName("option");
-let searchDataIndex = 0
 let data;
 let storage = localStorage.getItem("amiibo")
 let autoFill = JSON.parse(storage)
@@ -123,24 +122,24 @@ let displayAmiiboInfo = function(data, amiiboName) {
     resultsEl.appendChild(arrayContainerEl);
   };
 }
-let dropdown = function() {
-  for(var i =0; i < autoFill.length; i++)
-  console.log(autoFill[i].name)
-  let option = document.createElement("option")
-  option.textContent = autoFill[i].name
-  amiiboInputEl.appendChild(option)
+// let dropdown = function() {
+//   for(var i =0; i < autoFill.length; i++)
+//   console.log(autoFill[i].name)
+//   let option = document.createElement("option")
+//   option.textContent = autoFill[i].name
+//   amiiboInputEl.appendChild(option)
   
-}
-dropdown()
+// }
+// dropdown()
   
   // create link to secondary API and append to page
   let secondApiBtn = document.createElement("a");
   secondApiBtn.classList = "btn red waves-effect waves-light col s4 push-s4";
   secondApiBtn.textContent = "See eBay Listings";
   secondApiBtn.setAttribute("href", "./results.html?amiibo=" + amiiboName);
-  searchContainerEl.appendChild(secondApiBtn);
+  searchContainerEl.appendChild(secondApiBtn); 
 
-};
+
 
 // ** EVENT HANDLER FOR USER INPUT **
 amiiboFormEl.addEventListener( "submit",  formSubmitHandler);
