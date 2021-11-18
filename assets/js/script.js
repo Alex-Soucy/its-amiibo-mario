@@ -4,12 +4,10 @@ let amiiboFormEl = document.querySelector("#form");
 let resultsEl = document.querySelector("#results");
 let searchContainerEl = document.querySelector("#btn-parent");
 let selectEl = document.querySelector("#select")
-console.log(searchContainerEl);
 let amiiboName;
 let amiiboInfoAr = [];
 let searchHistAr = JSON.parse(localStorage.getItem("amiibo")) || [];
 let data;
-let amiiboSelectEl = document.querySelector("#option")
 
 // ** EVENT HANDLER FOR AMIIBO USER SEARCH **
 var formSubmitHandler = function(event) {
@@ -26,6 +24,9 @@ var formSubmitHandler = function(event) {
     resultsEl.innerHTML = "";
     amiiboInputEl.value = "";
     searchContainerEl.innerHTML = "";
+
+  }else {
+    alert("Please enter an amiibo name")
   }
 };
 
@@ -48,27 +49,20 @@ let getAmiiboInfo = function(amiiboName) {
         displayAmiiboInfo(data, amiiboName);
         let searchDataObj = {
           name: amiiboName,
-        }
+        };
         searchHistAr.push(searchDataObj)
-        searchHistAr.shift()
         localStorage.setItem("amiibo", JSON.stringify(searchHistAr));
         
       });
-
-    } else {
-      alert("Please enter a valid Amiibo")
-    }
-  })
-  .catch(function(error) {
-    alert("Unable to connect to Amiibo API");
-  })
+    };
+  });
 };
 
 // ** FUNCTION TO DISPLAY DATA FROM API **
 let displayAmiiboInfo = function(data, amiiboName) {
 
   // loop over returned amiibos
-  for (var i = 0; i < data.amiibo.length; i++) {
+  for (var i = 0; i < data.amiibo.length; i++) {      
 
     //create array-container div
     let arrayContainerEl = document.createElement("div");
@@ -93,7 +87,7 @@ let displayAmiiboInfo = function(data, amiiboName) {
     
     //create amiibo-figure img
     let amiiboFigureEl = document.createElement("img");
-    amiiboFigureEl.setAttribute('id', 'ebayImage');
+    amiiboFigureEl.setAttribute('id', 'amiibo-image');
     amiiboFigureEl.setAttribute("src", data.amiibo[i].image)
     amiiboFigureEl.setAttribute("alt", "Picture of the searched for Amiibo figure")
     figureDivEl.appendChild(amiiboFigureEl);
@@ -110,7 +104,7 @@ let displayAmiiboInfo = function(data, amiiboName) {
     gameContainerEl.classList = "card-title";
     gameContainerEl.textContent = "Amiibo Series"
     amiiboInfoContainerEl.appendChild(gameContainerEl);
-
+  
     //create amiibo-game div
     let amiiboGameEl = document.createElement("div");
     amiiboGameEl.classList = "card-content";
@@ -119,27 +113,18 @@ let displayAmiiboInfo = function(data, amiiboName) {
 
     //append amiiboInfo container to array-container
     arrayContainerEl.appendChild(amiiboInfoContainerEl);
-
+ 
     // append array-container to resultsEl
     resultsEl.appendChild(arrayContainerEl);
   };
-}
-// let dropdown = function() {
-//   for(var i =0; i < autoFill.length; i++)
-//   console.log(autoFill[i].name)
-//   let option = document.createElement("option")
-//   option.textContent = autoFill[i].name
-//   amiiboInputEl.appendChild(option)
-  
-// }
-// dropdown()
-  
+
   // create link to secondary API and append to page
   let secondApiBtn = document.createElement("a");
   secondApiBtn.classList = "btn red waves-effect waves-light col s4 push-s4";
   secondApiBtn.textContent = "See eBay Listings";
   secondApiBtn.setAttribute("href", "./results.html?amiibo=" + amiiboName);
-  searchContainerEl.appendChild(secondApiBtn); 
+  searchContainerEl.appendChild(secondApiBtn);
+}
 
 
 console.log(searchHistAr)
