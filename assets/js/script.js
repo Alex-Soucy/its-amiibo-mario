@@ -16,15 +16,14 @@ Has a "Back Button" to return to home page
 let amiiboInputEl = document.querySelector("#input");
 let amiiboFormEl = document.querySelector("#form");
 let resultsEl = document.querySelector("#results");
+let searchContainerEl = document.querySelector("#btn-parent");
+let selectEl = document.querySelector("#select")
+console.log(searchContainerEl);
 let amiiboName;
 let amiiboInfoAr = [];
-let searchHistAr = [];
-let optionEl = document.getElementsByClassName("option");
-let searchDataIndex = 0
+let searchHistAr = JSON.parse(localStorage.getItem("amiibo")) || [];
 let data;
-let storage = localStorage.getItem("amiibo")
-let autoFill = JSON.parse(storage)
-
+let amiiboSelectEl = document.querySelector("#option")
 // ** EVENT HANDLER FOR AMIIBO USER SEARCH **
 var formSubmitHandler = function(event) {
   // prevent page from refreshing
@@ -59,17 +58,17 @@ let getAmiiboInfo = function(amiiboName) {
     // request was successful
     if (response.ok) {
       console.log(response);
+      // let autoFill = JSON.parse(storage)
        
       response.json().then(function(data) {
         displayAmiiboInfo(data, amiiboName);
-      });
         let searchDataObj = {
           name: amiiboName,
-          id: searchDataIndex
         }
         searchHistAr.push(searchDataObj)
-          localStorage.setItem("amiibo", JSON.stringify(searchHistAr));
-          searchDataIndex++;            
+        localStorage.setItem("amiibo", JSON.stringify(searchHistAr));         
+      });
+
     } else {
       alert("Please enter a valid Amiibo")
     }
@@ -92,7 +91,7 @@ let displayAmiiboInfo = function(data, amiiboName) {
 
     //create name-figure-container div
     let nameFigureContainerEl = document.createElement("div");
-    nameFigureContainerEl.classList = "col s6 red-text card-panel hoverable card small";
+    nameFigureContainerEl.classList = "card small col s6 red-text card-panel hoverable";
 
     //create amiibo-name div
     let amiiboNameEl = document.createElement("div");
@@ -102,7 +101,8 @@ let displayAmiiboInfo = function(data, amiiboName) {
     
     //create amiibo-figure img
     let amiiboFigureEl = document.createElement("img");
-    amiiboFigureEl.classList = "circle responsive-img"
+    amiiboFigureEl.classList = "card-image"
+    amiiboFigureEl.setAttribute('id', 'ebayImage');
     amiiboFigureEl.setAttribute("src", data.amiibo[i].image)
     amiiboFigureEl.setAttribute("alt", "Picture of the searched for Amiibo figure")
     nameFigureContainerEl.appendChild(amiiboFigureEl);
@@ -112,7 +112,7 @@ let displayAmiiboInfo = function(data, amiiboName) {
 
     //create amiiboInfo container div
     let amiiboInfoContainerEl = document.createElement("div");
-    amiiboInfoContainerEl.classList = "col s6 red-text card-panel hoverable card small";
+    amiiboInfoContainerEl.classList = "card small col s6 red-text card-panel hoverable";
 
     //create game-title div
     let gameContainerEl = document.createElement("div");
@@ -131,17 +131,45 @@ let displayAmiiboInfo = function(data, amiiboName) {
  
     // append array-container to resultsEl
     resultsEl.appendChild(arrayContainerEl);
-
   };
 }
-let dropdown = function() {
-  for(var i =0; i < autoFill.length; i++)
-  console.log(autoFill[i].name)
-  let option = document.createElement("option")
-  option.textContent = autoFill[i].name
-  amiiboInputEl.appendChild(option)
-  
-}
-dropdown()
+console.log(searchHistAr)
+// let getLocalStorage = function() {
+//   let storage = localStorage.getItem("amiibo")
+
+// }
+// g
+  const dropdown = function() {
+    for(let i =0; i < searchHistAr.length; i++) {
+    console.log(searchHistAr[i].name)
+    globalThis.optionEl = document.createElement("option");
+    optionEl.setAttribute("value", searchHistAr[i].name);
+    optionEl.setAttribute("id", "option")
+    optionEl.textContent = searchHistAr[i].name
+    selectEl.appendChild(optionEl); 
+   }
+ }
+// const dropdown = function() {
+//   searchHistAr.forEach(amiiboObj => {
+//     var optionEl = document.createElement("option");
+//     optionEl.value = searchHistAr.name
+//      optionEl.textContent = searchHistAr.name
+//      selectEl.appendChild(optionEl)
+//   })
+// }
+  dropdown();
+
+  let secondApiBtn = document.createElement("a");
+  secondApiBtn.classList = "btn red waves-effect waves-light";
+  secondApiBtn.textContent = "See eBay Listings";
+  secondApiBtn.setAttribute("href", "./results.html?amiibo=" + amiiboName);
+  searchContainerEl.appendChild(secondApiBtn);
+
 // ** EVENT HANDLER FOR USER INPUT **
 amiiboFormEl.addEventListener( "submit",  formSubmitHandler);
+selectEl.addEventListener("click", function(){
+  let selectedOption = selectEl.option[selectEl.selectedIndex];
+  let selectedText = selectedOption.text;
+  amiiboInputEl.textContent = selectedText;
+  formSubmitHandler();
+})

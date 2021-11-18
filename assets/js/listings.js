@@ -113,7 +113,7 @@ var displayListings = function (listings) {
       amiiboPicContainerEl.classList.add('card', 'small', 'col', 's3', 'red-text', 'card-panel', 'hoverable')
 
       var amiiboPicTitleEl = document.createElement('h4')
-      amiiboPicTitleEl.classList.add('card-tite')
+      amiiboPicTitleEl.classList.add('card-title')
       amiiboPicTitleEl.textContent = 'Listing Image'
 
       amiiboPicContainerEl.appendChild(amiiboPicTitleEl)
