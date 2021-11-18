@@ -28,11 +28,22 @@ h2 {
     margin: 10px 10px 10px 10px;
 }
 
+
 .card-image
 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#img-div {
+  margin-top: 20px;
+}
+
+#amiibo-image {
+  height: 175px;
+  width: 200px;
+  object-fit: contain;
 }
 
 #ebayImage 
