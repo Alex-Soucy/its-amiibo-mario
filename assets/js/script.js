@@ -23,7 +23,6 @@ var formSubmitHandler = function(event) {
     amiiboInputEl.value = "";
     searchContainerEl.innerHTML = "";
   }
-
 };
 
 // ** FUNCTION TO RETRIEVE DATA FROM API **
