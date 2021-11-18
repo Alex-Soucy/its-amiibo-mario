@@ -3,13 +3,13 @@ let amiiboInputEl = document.querySelector("#input");
 let amiiboFormEl = document.querySelector("#form");
 let resultsEl = document.querySelector("#results");
 let searchContainerEl = document.querySelector("#btn-parent");
+let selectEl = document.querySelector("#select")
+console.log(searchContainerEl);
 let amiiboName;
 let amiiboInfoAr = [];
-let searchHistAr = [];
-let optionEl = document.getElementsByClassName("option");
+let searchHistAr = JSON.parse(localStorage.getItem("amiibo")) || [];
 let data;
-let storage = localStorage.getItem("amiibo")
-let autoFill = JSON.parse(storage)
+let amiiboSelectEl = document.querySelector("#option")
 
 // ** EVENT HANDLER FOR AMIIBO USER SEARCH **
 var formSubmitHandler = function(event) {
@@ -18,7 +18,7 @@ var formSubmitHandler = function(event) {
 
   // get value from input element
   amiiboName = amiiboInputEl.value.trim();
-  
+
   if (amiiboName) {
     getAmiiboInfo(amiiboName);
 
@@ -35,24 +35,26 @@ let getAmiiboInfo = function(amiiboName) {
   // format the api url    "https://www.amiiboapi.com/api/amiibo/?name=" + amiiboName
   var apiUrl = "https://www.amiiboapi.com/api/amiibo/?name=" + amiiboName
   console.log(amiiboName);
-   
+
   // make a get request to url
   fetch(apiUrl)
   .then(function(response) {
     // request was successful
     if (response.ok) {
       console.log(response);
-       
+      // let autoFill = JSON.parse(storage)
+
       response.json().then(function(data) {
         displayAmiiboInfo(data, amiiboName);
-      });
         let searchDataObj = {
           name: amiiboName,
-          id: searchDataIndex
         }
         searchHistAr.push(searchDataObj)
-          localStorage.setItem("amiibo", JSON.stringify(searchHistAr));
-          searchDataIndex++;            
+        searchHistAr.shift()
+        localStorage.setItem("amiibo", JSON.stringify(searchHistAr));
+        
+      });
+
     } else {
       alert("Please enter a valid Amiibo")
     }
@@ -66,7 +68,7 @@ let getAmiiboInfo = function(amiiboName) {
 let displayAmiiboInfo = function(data, amiiboName) {
 
   // loop over returned amiibos
-  for (var i = 0; i < data.amiibo.length; i++) {      
+  for (var i = 0; i < data.amiibo.length; i++) {
 
     //create array-container div
     let arrayContainerEl = document.createElement("div");
@@ -91,7 +93,7 @@ let displayAmiiboInfo = function(data, amiiboName) {
     
     //create amiibo-figure img
     let amiiboFigureEl = document.createElement("img");
-    amiiboFigureEl.setAttribute('id', 'amiibo-image');
+    amiiboFigureEl.setAttribute('id', 'ebayImage');
     amiiboFigureEl.setAttribute("src", data.amiibo[i].image)
     amiiboFigureEl.setAttribute("alt", "Picture of the searched for Amiibo figure")
     figureDivEl.appendChild(amiiboFigureEl);
@@ -108,7 +110,7 @@ let displayAmiiboInfo = function(data, amiiboName) {
     gameContainerEl.classList = "card-title";
     gameContainerEl.textContent = "Amiibo Series"
     amiiboInfoContainerEl.appendChild(gameContainerEl);
-  
+
     //create amiibo-game div
     let amiiboGameEl = document.createElement("div");
     amiiboGameEl.classList = "card-content";
@@ -117,7 +119,7 @@ let displayAmiiboInfo = function(data, amiiboName) {
 
     //append amiiboInfo container to array-container
     arrayContainerEl.appendChild(amiiboInfoContainerEl);
- 
+
     // append array-container to resultsEl
     resultsEl.appendChild(arrayContainerEl);
   };
@@ -140,6 +142,19 @@ let displayAmiiboInfo = function(data, amiiboName) {
   searchContainerEl.appendChild(secondApiBtn); 
 
 
+console.log(searchHistAr)
+  const dropdown = function() {
+    let dataListEl = document.getElementById("history")
+    let node = document.createTextNode(amiiboInputEl.value)
+    for(let i =0; i < searchHistAr.length; i++) {
+    console.log(searchHistAr[i].name)
+    globalThis.optionEl = document.createElement("option");
+    optionEl.append(node)
+    optionEl.setAttribute("value", searchHistAr[i].name);
 
+    dataListEl.appendChild(optionEl)
+   }
+ }
+  dropdown();
 // ** EVENT HANDLER FOR USER INPUT **
 amiiboFormEl.addEventListener( "submit",  formSubmitHandler);
