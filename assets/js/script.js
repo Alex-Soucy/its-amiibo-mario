@@ -22,11 +22,7 @@ var formSubmitHandler = function(event) {
     resultsEl.innerHTML = "";
     amiiboInputEl.value = "";
     searchContainerEl.innerHTML = "";
-
-  } else {
-    alert("Please enter an amiibo name");
   }
-
 };
 
 // ** FUNCTION TO RETRIEVE DATA FROM API **
@@ -46,14 +42,8 @@ let getAmiiboInfo = function(amiiboName) {
       response.json().then(function(data) {
         displayAmiiboInfo(data, amiiboName);
       });
-                 
-    } else {
-      alert("Please enter a valid Amiibo")
-    }
-  })
-  .catch(function(error) {
-    alert("Unable to connect to Amiibo API");
-  })
+    };
+  });
 };
 
 // ** FUNCTION TO DISPLAY DATA FROM API **
