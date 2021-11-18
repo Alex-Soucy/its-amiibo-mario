@@ -1,9 +1,9 @@
-/*Basic javaScript Set Up 
+/*Basic javaScript Set Up
 	Home Page:
 		User Searches for an Amiibo
 		Fetch Amiibo information from Amiibo API
 		Display determine amiibo information
-		Button for secondary API fetch/webpage 
+		Button for secondary API fetch/webpage
 			Fetch Web Search results using data from the original input or the fetched data to search
 			Open a secondary page with search results for applicable amiibo
 	Search Page/Container:
@@ -24,6 +24,7 @@ let amiiboInfoAr = [];
 let searchHistAr = JSON.parse(localStorage.getItem("amiibo")) || [];
 let data;
 let amiiboSelectEl = document.querySelector("#option")
+
 // ** EVENT HANDLER FOR AMIIBO USER SEARCH **
 var formSubmitHandler = function(event) {
   // prevent page from refreshing
@@ -31,7 +32,7 @@ var formSubmitHandler = function(event) {
 
   // get value from input element
   amiiboName = amiiboInputEl.value.trim();
-  
+
   if (amiiboName) {
     getAmiiboInfo(amiiboName);
 
@@ -51,7 +52,7 @@ let getAmiiboInfo = function(amiiboName) {
   // format the api url    "https://www.amiiboapi.com/api/amiibo/?name=" + amiiboName
   var apiUrl = "https://www.amiiboapi.com/api/amiibo/?name=" + amiiboName
   console.log(amiiboName);
-   
+
   // make a get request to url
   fetch(apiUrl)
   .then(function(response) {
@@ -59,14 +60,16 @@ let getAmiiboInfo = function(amiiboName) {
     if (response.ok) {
       console.log(response);
       // let autoFill = JSON.parse(storage)
-       
+
       response.json().then(function(data) {
         displayAmiiboInfo(data, amiiboName);
         let searchDataObj = {
           name: amiiboName,
         }
         searchHistAr.push(searchDataObj)
-        localStorage.setItem("amiibo", JSON.stringify(searchHistAr));         
+        searchHistAr.shift()
+        localStorage.setItem("amiibo", JSON.stringify(searchHistAr));
+        
       });
 
     } else {
@@ -83,7 +86,7 @@ let displayAmiiboInfo = function(data, amiiboName) {
   console.log("The display function was called!");
 
   // loop over returned amiibos
-  for (var i = 0; i < data.amiibo.length; i++) {      
+  for (var i = 0; i < data.amiibo.length; i++) {
 
     //create array-container div
     let arrayContainerEl = document.createElement("div");
@@ -98,7 +101,7 @@ let displayAmiiboInfo = function(data, amiiboName) {
     amiiboNameEl.classList = "card-title";
     amiiboNameEl.textContent = data.amiibo[i].name;
     nameFigureContainerEl.appendChild(amiiboNameEl);
-    
+
     //create amiibo-figure img
     let amiiboFigureEl = document.createElement("img");
     amiiboFigureEl.classList = "card-image"
@@ -119,7 +122,7 @@ let displayAmiiboInfo = function(data, amiiboName) {
     gameContainerEl.classList = "card-title";
     gameContainerEl.textContent = "Game Series"
     amiiboInfoContainerEl.appendChild(gameContainerEl);
-  
+
     //create amiibo-game div
     let amiiboGameEl = document.createElement("div");
     amiiboGameEl.classList = "card-content";
@@ -128,35 +131,25 @@ let displayAmiiboInfo = function(data, amiiboName) {
 
     //append amiiboInfo container to array-container
     arrayContainerEl.appendChild(amiiboInfoContainerEl);
- 
+
     // append array-container to resultsEl
     resultsEl.appendChild(arrayContainerEl);
   };
 }
 console.log(searchHistAr)
-// let getLocalStorage = function() {
-//   let storage = localStorage.getItem("amiibo")
-
-// }
-// g
   const dropdown = function() {
+    let dataListEl = document.getElementById("history")
+    let node = document.createTextNode(amiiboInputEl.value)
     for(let i =0; i < searchHistAr.length; i++) {
     console.log(searchHistAr[i].name)
     globalThis.optionEl = document.createElement("option");
+    optionEl.append(node)
     optionEl.setAttribute("value", searchHistAr[i].name);
-    optionEl.setAttribute("id", "option")
-    optionEl.textContent = searchHistAr[i].name
-    selectEl.appendChild(optionEl); 
+    //  optionEl.setAttribute("id", "option")
+    //  optionEl.textContent = searchHistAr[i].name
+    dataListEl.appendChild(optionEl)
    }
  }
-// const dropdown = function() {
-//   searchHistAr.forEach(amiiboObj => {
-//     var optionEl = document.createElement("option");
-//     optionEl.value = searchHistAr.name
-//      optionEl.textContent = searchHistAr.name
-//      selectEl.appendChild(optionEl)
-//   })
-// }
   dropdown();
 
   let secondApiBtn = document.createElement("a");
@@ -167,9 +160,3 @@ console.log(searchHistAr)
 
 // ** EVENT HANDLER FOR USER INPUT **
 amiiboFormEl.addEventListener( "submit",  formSubmitHandler);
-selectEl.addEventListener("click", function(){
-  let selectedOption = selectEl.option[selectEl.selectedIndex];
-  let selectedText = selectedOption.text;
-  amiiboInputEl.textContent = selectedText;
-  formSubmitHandler();
-})
