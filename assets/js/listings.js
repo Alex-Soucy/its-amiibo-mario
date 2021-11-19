@@ -5,6 +5,7 @@ Check response.request_info for credits_remaining
 */
 
 var listingsContainerEl = document.querySelector('#card-container')
+var continueToEbayEl = document.querySelector('#contEbay')
 
 var getAmiiboName = function () {
   var queryString = document.location.search
@@ -26,9 +27,14 @@ var getEbayListings = function (amiiboName) {
       response.json().then(function (data) {
         console.log(data)
         displayListings(data)
+        continueToEbayLink(data)
       })
     }
   })
+}
+
+var continueToEbayLink = function (data) {
+  continueToEbayEl.setAttribute('href', data.request_metadata.ebay_url)
 }
 
 var displayListings = function (listings) {
