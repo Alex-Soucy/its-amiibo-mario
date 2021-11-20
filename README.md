@@ -11,8 +11,8 @@ This website was built to allow avid Nintendo fans and collectors to search for 
 * JavaScript is used to make the page work and display the data from the APIs.
 
 ### Features
-* The landing page provides the user with a search bar used to find their favorite Characters Ammibo figures.
-* If the character searched for has a figure cards will display the image as well as the Amiibo series that figure comes from.
+* The landing page provides the user with a search bar used to find their favorite characters Amiibo figures.
+* If the character searched for has a figure, the page will display an iamge of the figure as well as the Amiibo series that figure comes from.
 * A button will appear to allow the user to go to our listings page.
 * On the listings page the user will find the name of the character, related eBay listings, price, and image from the eBay listing.
 * The user can click on the title of the eBay listing to go to that page and buy the figure.
