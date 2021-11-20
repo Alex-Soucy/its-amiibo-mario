@@ -32,6 +32,10 @@ This website was built to allow avid Nintendo fans and collectors to search for 
 
 [Link to the deployed page](https://alex-soucy.github.io/its-amiibo-mario/)
 
+![image of deployed landing page](./assets/images/landing-page.png)
+
+![image of deployed listings page](./assets/images/listings-page.png)
+
 
 
 
